@@ -2,6 +2,15 @@
 #include <Wire.h>
 #include "LIDARLite_v4LED.h"
 
+//IMU libs
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+#include <utility/imumaths.h>
+
+// Check I2C device address and correct line below (by default address is 0x29 or 0x28)
+//                                   id, address
+Adafruit_BNO055 bno = Adafruit_BNO055(-1, 0x28, &Wire);
+
 LIDARLite_v4LED myLidarLite;
 
 #define FAST_I2C
@@ -29,11 +38,36 @@ void setup() {
 
   myLidarLite.setI2Caddr(0x55, 1, 0x55);
 
+  // Initialize IMU //////////////////////////////////////////////////////////////////
+
+   Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
+
+  /* Initialise the sensor */
+  if(!bno.begin())
+  {
+    /* There was a problem detecting the BNO055 ... check your connections */
+    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    while(1);
+  }
+  delay(1000);
+
+    /* Display the current temperature */
+    int8_t temp = bno.getTemp();
+    Serial.print("Current Temperature: ");
+    Serial.print(temp);
+    Serial.println(" C");
+    Serial.println("");
+
+    bno.setExtCrystalUse(true);
+
+    Serial.println("Calibration status values: 0=uncalibrated, 3=fully calibrated");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   
+  // Lidar Sensor ///////////////////////////////////////////////////////////////////////
+
   uint16_t distanceR;
   uint16_t distanceL;
   
@@ -45,6 +79,21 @@ void loop() {
 
   Serial.println("distanceL: ");
   Serial.println(distanceL);
+
+  // IMU Sensor ///////////////////////////////////////////////////////////////////////////
+
+  imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+
+  /* Display the floating point data */
+  Serial.print("X: ");
+  Serial.print(euler.x());
+  Serial.print(" Y: ");
+  Serial.print(euler.y());
+  Serial.print(" Z: ");
+  Serial.print(euler.z());
+  Serial.print("\t\t");
+  Serial.println();
+  Serial.println();
   
   delay(1000);
 
@@ -91,4 +140,3 @@ uint8_t distanceContinuousL(uint16_t * distance)
 
     return newDistance;
 }
-    // Check push JW
