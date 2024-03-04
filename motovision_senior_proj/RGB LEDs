@@ -1,0 +1,106 @@
+if (tempR<100 && tempL<100) /* Lane splitting mode, all LEDs off */
+	{
+	analogWrite(6,0);
+	analogWrite(11,0);
+	analogWrite(5,0);
+	analogWrite(10,0);
+	}
+else
+{
+if (tempR < 5)
+	distanceR = tempR;
+if (distanceR>=400 && distanceR<466)
+{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,76); /* Right green led at ~29% duty cycle */
+}
+else if (distanceR>=350 && distanceR<400)
+{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,65); /* Right green led at ~25% duty cycle */
+}
+else if (distanceR>=300 && distanceR<350)
+{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,55); /* Right green led at ~22% duty cycle */
+}
+else if (distanceR>=250 && distanceR<300)
+{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,45); /* Right green led at ~18% duty cycle */
+}
+else if (distanceR>=200 && distanceR<250)
+{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,35); /* Right green led at ~14% duty cycle */
+}
+else if (distanceR>=150 && distanceR<200)
+	{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,25); /* Right green led at ~10% duty cycle */
+}
+else if (distanceR>=100 && distanceR<150)
+{
+analogWrite(6,255);
+analogWrite(11,15); 
+}
+else if (distanceR>=0 && distanceR<100)
+{
+analogWrite(6,255); /* Right red led at 100% duty cycle */
+analogWrite(11,0); /* Right green led at 0% duty cycle */
+}
+else
+{
+analogWrite(6,0); /* Right red led at 0% duty cycle */
+analogWrite(11,0); /* Right green led at 0% duty cycle */
+}
+
+
+
+if (tempL > 5)
+	distanceL = tempL;
+if (distanceL>=400 && distanceL<466)
+{
+analogWrite(5,255); /* Left red led at 100% duty cycle */
+analogWrite(10,76); /* Left green led at ~29% duty cycle */
+}
+else if (distanceL>=350 && distanceL<400)
+	{
+analogWrite(5,255); /* Left red led at 100% duty cycle */
+analogWrite(10,65); /* Left green led at ~25% duty cycle */
+}
+else if (distanceL>=300 && distanceL<350)
+{
+analogWrite(5,255); /* Left red led at 100% duty cycle */
+analogWrite(10,55); /* Left green led at ~22% duty cycle */
+}
+else if (distanceL>=250 && distanceL<300)
+{
+analogWrite(5,255); /* Left red led at 100% duty cycle */
+analogWrite(10,45); /* Left green led at ~18% duty cycle */
+}
+else if (distanceL>=200 && distanceL<250)
+{
+analogWrite(5,255); /* Right red led at 100% duty cycle */
+analogWrite(10,35); /* Right green led at ~14% duty cycle */
+}
+else if (distanceL>=150 && distanceL<200)
+	{
+analogWrite(5,255); 
+analogWrite(10,25); 
+}
+else if (distanceL>=100 && distanceL<150)
+{
+analogWrite(5,255);
+analogWrite(10,15); 
+}
+else if (distanceL>=0 && distanceL<100)
+{
+analogWrite(5,255); /* Left red led at 100% duty cycle */
+analogWrite(10,0); /* Left green led at 0% duty cycle */
+}
+else
+{
+analogWrite(5,0); /* Left red led at 0% duty cycle */
+analogWrite(10,0); /* Left green led at 0% duty cycle */
+}
